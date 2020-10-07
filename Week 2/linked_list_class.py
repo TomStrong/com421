@@ -30,12 +30,12 @@ class LinkedList:
   def get(self, index):
     if (index > (self.length-1)):
       return("Error: index out of range")
-    elif (index > (self.length/2)):
+    elif (index > (self.length/2)): # starts from the end if the index is past half way
       temp = self.last
       for i in range(self.length-index-1):
         temp = temp.prev
       return(temp.data)
-    else:
+    else: # starts from the beginning
       temp = self.first
       for i in range(index):
         temp = temp.next
