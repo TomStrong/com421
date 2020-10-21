@@ -1,14 +1,15 @@
 class HashTable():
   def __init__(self):
-    # creates table with 1000 entry slots
+    # creates table with 127 entry slots
     self.table = [None] * 127
 
   def add(self, item):
-    # if index does not contain a bucket, it creates one
-    if (type(self.table[item.hash]) != Bucket):
-      self.table[item.hash] = Bucket()
-    # adds item to the bucket
-    self.table[item.hash].add(item)
+    # if index contains an item, goes through the list until a free slot is found
+    tempIndex = item.hash
+    while (self.table[tempIndex] != None):
+      tempIndex += 1
+    # adds item to list
+    self.table[tempIndex] = item
 
   def lookup(self, name):
     # calculates hash of word
@@ -16,21 +17,11 @@ class HashTable():
     hash = Item.calcHash(name)
     # checks if the table contains a bucket at that location
     if (self.table[hash] != None):
-      print(self.table[hash].find(name))
+      while (self.table[hash].name != name):
+        hash += 1
+      print(self.table[hash])
     else:
       print("That is not stored in the dictionary.")
-
-class Bucket():
-  def __init__(self):
-    self.bucket = []
-
-  def add(self, item):
-    self.bucket.append(item)
-
-  def find(self, name):
-    for item in self.bucket:
-      if (item.name == name):
-        return item
 
 class Item():
   def __init__(self, name, val):
@@ -65,3 +56,6 @@ table.lookup("cat")
 table.lookup("test")
 print(table.table)
 table.lookup("test")
+print(table.table[58])
+print(table.table[59])
+print(table.table[60])
