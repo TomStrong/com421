@@ -15,7 +15,7 @@ class HashTable():
     # calculates hash of word
     name = name.lower()
     hash = Item.calcHash(name)
-    # checks if the table contains a bucket at that location
+    # checks if the table contains the item
     if (self.table[hash] != None):
       while (self.table[hash].name != name):
         hash += 1
