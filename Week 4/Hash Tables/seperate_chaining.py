@@ -2,6 +2,7 @@ class HashTable():
   def __init__(self):
     # creates table with 1000 entry slots
     self.table = [None] * 127
+    self.table = [None] * 1000
 
   def add(self, item):
     # if index does not contain a bucket, it creates one
@@ -64,3 +65,4 @@ table.lookup("dog")
 table.lookup("cat")
 table.lookup("test")
 print(table.table)
+table.lookup("test")
