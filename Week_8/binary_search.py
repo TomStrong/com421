@@ -4,14 +4,13 @@ def binary_search(searchVal):
   numbers = [i*i for i in range(1,101)]
   top = len(numbers)-1
   bot = 0
-  found = False
   
-  while (found == False):
+  while True:
     searchIndex = math.floor((top + bot) / 2)
 
     if (numbers[searchIndex] == searchVal):
       return "Index: {}".format(searchIndex)
-    elif (top == bot):
+    elif (top == bot or top < 0):
       return "Not in list."
     elif (numbers[searchIndex] > searchVal):
       top = searchIndex - 1

@@ -22,9 +22,6 @@ class BinaryTree():
       else:
         lastNode.right = node
 
-  def printTree(self):
-    print()
-
 
 class TreeNode():
   def __init__(self, value):
