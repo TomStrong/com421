@@ -3,16 +3,19 @@ import datastructures as ds
 def addPOI(): # ---TASK 1---
 
   name = input("Enter the POI name: ")
-  pType = input("Enter the POI type: ")
-  desc = input("Enter the POI description: ")
-  table.add(ds.POI(name, pType, desc))
+  if (ds.POI.validateName(name)):
+    pType = input("Enter the POI type: ")
+    desc = input("Enter the POI description: ")
+    table.add(ds.POI(name, pType, desc))
+  else:
+    print("A name must contain letters.")
 
   return True
 
 def idSearch(): # ---TASK 2---
 
   pID = input("Enter the POI ID: ")
-  table.lookup(id=pID)
+  print(table.lookup(pID=pID))
 
   return True
 
@@ -25,7 +28,8 @@ def showAll(): # ---TASK 3---
 def nameSearch(): # ---TASK 4---
 
   name = input("Enter the POI name: ")
-  table.lookup(name=name)
+  for item in table.lookup(name=name):
+    print(item)
 
   return True
 
@@ -33,6 +37,27 @@ def deletePOI(): # ---TASK 5---
 
   pID = input("Enter the POI ID: ")
   table.delete(pID)
+
+  return True
+
+def makeEnquiry(): # ---TASK 6---
+
+  pID = input("Enter the POI ID: ")
+  search = table.lookup(pID=pID)
+  if (search == "That POI does not exist."):
+    print(search)
+    return True
+
+  print(search)
+  enquiry = input("\nEnter an enquiry for the POI listed above.\n>> ")
+  enquiryTuple = (pID, enquiry)
+  enquiries.add(enquiryTuple)
+
+  return True
+
+def answerEnquiry(): # ---TASK 6---
+
+  print(enquiries.remove())
 
   return True
 
@@ -54,6 +79,8 @@ def end():
 def main():
   global table
   table = ds.HashTable()
+  global enquiries
+  enquiries = ds.Queue(20)
 
   options = {
     1: addPOI,
@@ -61,6 +88,8 @@ def main():
     3: showAll,
     4: nameSearch,
     5: deletePOI,
+    6: makeEnquiry,
+    7: answerEnquiry,
     9: end
   }
 
@@ -73,11 +102,20 @@ def main():
     print("3: Display all POIs")
     print("4: Search POIs by name")
     print("5: Delete a POI")
+    print("6: Make an enquiry")
+    print("7: Answer enquiry")
     print("\n9: Exit")
     selection = int(input(">> "))
     print()
-    running = options.get(selection, inval)()
-    print() 
+    if (selection != 1 and selection != 7 and selection != 9):
+      if (table.count > 0):
+        running = options.get(selection, inval)()
+      else:
+        print("No POIs are stored.")
+    else:
+      running = options.get(selection, inval)()
+
+    print()
 
 
 
